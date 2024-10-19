@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event BB Shower</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Event BB Shower</h1>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#agenda-eventos">Agenda de eventos</a></li>
+                <li><a href="#juegos-actividades">Juegos y actividades</a></li>
+                <li><a href="#revelacion">Revelacion</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="seccion">
+        <h2>Inicio</h2>
+        <p>Descripción</p>
+    </section>
+
+    <section id="agenda-eventos" class="seccion">
+        <h2>Agenda de eventos</h2>
+        <p>Descripción</p>
+    </section>
+
+    <section id="juegos-actividades" class="seccion">
+        <h2>Juegos y actividades</h2>
+        <div class="proyecto">
+            <h3>Proyecto 1</h3>
+            <p>Descripción</p>
+        </div>
+        <div class="proyecto">
+            <h3>Proyecto 2</h3>
+            <p>Descripción</p>
+        </div>
+    </section>
+
+    <section id="revelacion" class="seccion">
+        <h2>Revelacion</h2>
+        <div class="proyecto">
+            <h3>Proyecto 1</h3>
+            <p>Descripción</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Mi Página Web. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script> <!-- Asegúrate de incluir Firestore -->
+
+    <script>
+      // Configuración de Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyCU0Dv_cg85YswbLcis_cnMUX3A8ksvcwk",
+        authDomain: "event-bb-shower.firebaseapp.com",
+        projectId: "event-bb-shower",
+        storageBucket: "event-bb-shower.appspot.com",
+        messagingSenderId: "194754372711",
+        appId: "1:194754372711:web:b665523f0612183fcfa0c2",
+        measurementId: "G-5FPB49CRHW"
+      };
+
+      // Inicializar Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const analytics = firebase.analytics(app);
+      const database = firebase.database();
+
+      // Probar la conexión a Firestore
+      const firestore = firebase.firestore();
+      firestore.collection("votacion").get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+          });
+        })
+        .catch((error) => {
+          console.error("Error al acceder a la base de datos: ", error);
+        });
+
+      // Ejemplo de escribir datos
+      function escribirDatos() {
+        database.ref('eventos/').set({
+          evento1: 'Descripción del evento 1',
+          evento2: 'Descripción del evento 2'
+        });
+      }
+
+      // Ejemplo de leer datos
+      function leerDatos() {
+        database.ref('eventos/').on('value', (snapshot) => {
+          const data = snapshot.val();
+          console.log(data);
+        });
+      }
+
+      // Llama estas funciones según lo necesites
+      escribirDatos();
+      leerDatos();
+    </script>
+
+</body>
+</html>
